@@ -1,0 +1,15 @@
+Pour lab 2, j'avais besoin d'installer genymotion.
+
+**** Problème 1 : *********************************
+* Genymotion ne supporte pas mon système pas      *
+* Arch linux, il ne supporte que :                *
+* Debian, Ubuntu et Fedora (Linux)                *
+*************************************************** 
+
+**** Fix 1 : **************************************
+* Heureusement, Arch a Genymotion dans son        *
+* répertoire, l'installation est faite sans aucun *
+* problème.                                       *
+***************************************************
+
+
