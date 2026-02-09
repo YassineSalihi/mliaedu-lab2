@@ -12,4 +12,9 @@ Pour lab 2, j'avais besoin d'installer genymotion.
 * problème.                                       *
 ***************************************************
 
+**** Problème 2: **************************************
+* ERROR : 
+* Essayant d'installer apk mais i got :
+* "Invalid name"
+***************************************************
 
