@@ -18,3 +18,15 @@ Pour lab 2, j'avais besoin d'installer genymotion.
 * "Invalid name"
 ***************************************************
 
+**** Fix 2 : **************************************
+* remove charachters and spaces.                  *
+***************************************************
+
+**** Problème 3 : *********************************
+* all emulators are pain in the a**,              *
+* So I ended up using Android studio              *
+***************************************************
+
+
+
+
