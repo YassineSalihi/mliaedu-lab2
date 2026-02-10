@@ -24,9 +24,11 @@ Active le serveur adb en mode root si supporté par l'image
  - Nature des Données : 
  - Environnement Réseau : Réseau local de test isolé (via machine hôte Kali Linux).
 
-# Etape 3 
+# Etape 3 : Démarrer AVD 
  
 ![adb devices](https://github.com/user-attachments/assets/35129add-99fe-46da-8d51-f06df8ade4a9)
 
+# Etape 4 : Installer et lancer l'app de test
+ 
 
 
