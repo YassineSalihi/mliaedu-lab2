@@ -13,8 +13,9 @@ Active le serveur adb en mode root si supporté par l'image
 
 ![ids](https://github.com/user-attachments/assets/f570bcd7-8080-429a-b606-689835758d25)
 
-![Logs](https://github.com/user-attachments/assets/ad2a2dbf-bf83-4d73-a18c-08a45eb534b0)
 ![verify](https://github.com/user-attachments/assets/006259f4-7c19-4a5f-9fc6-98303bf6c933)
+
+![Logs](https://github.com/user-attachments/assets/ad2a2dbf-bf83-4d73-a18c-08a45eb534b0)
 
 
 
