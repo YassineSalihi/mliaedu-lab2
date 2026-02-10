@@ -17,6 +17,13 @@ Active le serveur adb en mode root si supporté par l'image
 
 ![Logs](https://github.com/user-attachments/assets/ad2a2dbf-bf83-4d73-a18c-08a45eb534b0)
 
+# Etape 2 : Fiche Périmètre de l'Audit
+ - Application & Version : 
+ - Support (Cible) : Emulateur Android Studio (AVD) : Pixel_6
+ - Objectif du test : 
+ - Nature des Données : 
+ - Environnement Réseau : Réseau local de test isolé (via machine hôte Kali Linux).
+ 
 
 
 
