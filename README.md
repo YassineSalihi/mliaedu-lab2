@@ -30,5 +30,13 @@ Active le serveur adb en mode root si supporté par l'image
 
 # Etape 4 : Installer et lancer l'app de test
  
+![](https://github.com/user-attachments/assets/d6370948-ac2c-4e76-bd0b-1fdbedc3cf29)
+
+# Etape 5 : Skipped
+
+# Etape 6 : Lire Android Security
+
+<https://source.android.com/docs/security> 
+
 
 
