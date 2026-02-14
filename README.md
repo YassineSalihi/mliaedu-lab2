@@ -63,5 +63,73 @@ on a trouvé le code secret :
 Le programme de sécurité d'Android repose sur une architecture multicouche conçue pour protéger les données et la confidentialité des utilisateurs tout en offrant un environnement ouvert aux développeurs. Cette approche inclut des fonctionnalités natives comme le sandboxing des applications, le chiffrement des données et le Verified Boot. La plateforme assure une protection continue grâce à la publication régulière de bulletins de sécurité et à l'application de meilleures pratiques couvrant aussi bien le matériel que le réseau. 
 Enfin, des outils de test et de diagnostic rigoureux permettent de détecter et de corriger les vulnérabilités avant qu'elles ne soient exploitées.
 
+# Etape 7 : Verified Boot
 
+> [!NOTE]
+> Green : Tout est normal, système vérifié et intègre
+> Yellow/Orange : Avertissement, système modifié mais fonctionnel 
+> Red : Danger, intégrité compromise
+
+![](https://github.com/user-attachments/assets/7a1ba00b-867c-4b66-a976-85324ec7b45c)
+
+# Etape 9 : Définir le Rooting
+
+ Le rooting est le processus par lequel les utilisateurs d'appareils Android peuvent obtenir un contrôle privilégié (appelé accès root) sur divers sous-systèmes de l'appareil, généralement des smartphones et des tablettes.
+ Android étant basé sur une version modifiée du noyau Linux, le rooting d'un appareil Android donne accès à des autorisations administratives (superutilisateur) similaires à celles de Linux ou de tout autre système d'exploitation de type Unix tel que FreeBSD ou macOS. 
+
+# Etape 11 : Matrice de risques
+
+* **Intégrité non garantie** : Les conclusions peuvent être biaisées car le système d'exploitation ne se comporte plus de manière standard et les mécanismes de protection natifs sont désactivés.
+* **Surface d'attaque accrue** : Si l'appareil quitte le périmètre sécurisé du laboratoire, il devient vulnérable aux menaces externes en l'absence de ses barrières de sécurité d'origine.
+* **Exposition de données** : Risque de violation de la confidentialité si des données sensibles transitent ou sont stockées sur un appareil dont le cloisonnement est rompu.
+* **Instabilité système** : Les modifications peuvent rendre les tests non reproductibles et entraîner des résultats incohérents.
+* **Mélange de comptes** : Risque de fuite d'informations personnelles si les comptes de test et les comptes personnels ne sont pas strictement isolés.
+* **Nettoyage insuffisant** : Persistance de données sensibles entre deux sessions de test si une procédure de remise à zéro (reset) complète n'est pas appliquée.
+* **Réseau non isolé** : Risque d'effets de bord ou d'attaques involontaires sur des systèmes tiers ou des infrastructures externes.
+* **Traçabilité insuffisante** : Difficulté majeure pour auditer précisément les manipulations effectuées ou pour fournir une preuve de concept (PoC) fidèle.
+
+# Etape 12 : Mesures Défensives
+
+Pour atténuer les risques liés au rooting et sécuriser l'environnement de test, les mesures suivantes doivent être appliquées :
+
+* **Réseau isolé** : Utiliser un segment réseau dédié pour éviter toute communication non contrôlée vers l'extérieur.
+* **Données fictives** : Manipuler exclusivement des données de test pour éliminer tout risque de fuite d'informations réelles.
+* **Équipement dédié** : Utiliser un appareil physique ou un émulateur (AVD) réservé uniquement aux audits de sécurité.
+* **Snapshots et Wipe** : Effectuer une remise à zéro complète ou restaurer un instantané propre après chaque séance de test.
+* **Journal de configuration** : Tenir un registre détaillé des modifications système pour assurer la reproductibilité des résultats.
+* **Isolation des comptes** : Proscrire l'usage de comptes personnels afin d'éviter tout mélange accidentel de données privées.
+* **Contrôle des APK** : Restreindre strictement l'installation aux seules applications cibles pour limiter les vecteurs d'attaque.
+* **Traçabilité complète** : Systématiser l'horodatage et les captures d'écran à chaque étape pour garantir un audit transparent.
+
+# Étape 13 : OWASP MASVS (Référence de Sécurité)
+
+L'**OWASP** (Open Web Application Security Project) est l'organisation de référence mondiale en cybersécurité. Le **MASVS** (Mobile Application Security Verification Standard) est leur standard spécifique pour évaluer la sécurité des applications mobiles.
+
+### Exigences clés (Extraits)
+
+* **MASVS-STORAGE-1** : Les données sensibles (clés d'API, mots de passe, tokens) doivent être stockées de manière sécurisée en utilisant les mécanismes de chiffrement natifs du système.
+* **MASVS-NETWORK-1** : Toutes les communications réseau doivent utiliser le protocole TLS avec une configuration robuste et une vérification stricte des certificats.
+
+### Application pratique
+Grâce aux **privilèges root** obtenus lors des étapes précédentes, vous pouvez auditer ces exigences en :
+1. Explorant les répertoires de stockage privés pour vérifier l'absence de secrets en clair (Storage).
+2. Utilisant un proxy d'interception pour valider la robustesse du chiffrement du trafic (Network).
+
+## Étape 14 : OWASP MASTG (Méthodologie de Test)
+
+Le **MASTG** (Mobile Application Security Testing Guide) est le manuel technique qui explique **comment** vérifier les exigences posées par le MASVS. C'est votre guide pratique pour réaliser des tests d'intrusion sur mobile.
+
+### Idées de tests appliquées à DIVA
+
+* **Analyse du stockage local** : Examiner les fichiers de préférences dans `/data/data/jakhar.aseem.diva/shared_prefs/` pour vérifier si des informations sensibles (comme le login ou les clés) y sont stockées en clair. 
+* **Surveillance des logs système** : Utiliser la commande `adb logcat` pendant l'utilisation de l'application pour détecter des fuites d'informations sensibles (mots de passe, numéros de carte) envoyées vers la console de débogage.
+
+
+
+### Astuce technique (Privilèges Root)
+Sur Android, le dossier `/data/data/` est normalement protégé par le "bac à sable" (sandbox) applicatif. Grâce à vos **privilèges root**, vous pouvez briser cet isolement pour accéder aux données privées de DIVA et valider si l'application respecte les standards de sécurité.
+
+> [!NOTE]
+> On a utilisé strings et la décompilation pour trouver la clé hardcodée (Analyse statique).
+> On a utilisé adb logcat pour voir les fuites d'informations (Analyse dynamique, préconisée par le MASTG).
 
