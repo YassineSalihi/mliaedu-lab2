@@ -133,3 +133,44 @@ Sur Android, le dossier `/data/data/` est normalement protégé par le "bac à s
 > On a utilisé strings et la décompilation pour trouver la clé hardcodée (Analyse statique).
 > On a utilisé adb logcat pour voir les fuites d'informations (Analyse dynamique, préconisée par le MASTG).
 
+# Etape 16 : Traçabilité (Fiche Environnement)
+
+> [!IMPORTANT]
+> En sécurité, la documentation est aussi importante que le test lui-même. Sans traçabilité, un test n'a pas de valeur probante et ne peut être ni reproduit, ni vérifié.
+
+## 📋 Fiche de l'Environnement de Test
+
+| Champ | Informations |
+| :--- | :--- |
+| **Date / Auteur** | 14/02/2026 - addseen |
+| **Support de test** | AVD (Android Virtual Device) - Pixel_6 |
+| **Version Android / API** | Android [Version, ex: 13] / API [ex: 33] |
+| **Application (APK)** | DIVA (Damn Insecure Vulnerable App) v1.0 |
+| **Environnement réseau** | LAN de test isolé via machine hôte (Kali Linux) |
+
+## 🧪 Résumé des Scénarios de Test
+
+1. **Scénario 1 : Hardcoding Issue** - Analyse statique via décompilation (JADX) pour extraire des secrets en dur dans le code Java.
+2. **Scénario 2 : SQL Injection** - Test d'injection sur les entrées de recherche pour bypasser la logique de la base de données locale.
+3. **Scénario 3 : WebView Vulnerability** - Exploitation de `loadUrl` pour accéder à des fichiers locaux via le schéma `file://`.
+
+## 🔍 Observations Factuelles & Limites
+* **Observations** : L'utilisation d'**adb root** a permis de confirmer l'exposition des données dans `/data/data/`. L'absence de vérification du certificat (MASTG) facilite l'interception.
+* **Limites** : Tests effectués sur émulateur x86_64 ; certains comportements liés au matériel réel (TEE, StrongBox) n'ont pas été audités.
+
+## 🛡️ Clôture et Preuves
+* **Reset effectué** : [x] Oui / [ ] Non
+* **Preuve du Reset** : [Copie d'écran du wipe ou commande `adb shell rm -rf`]
+
+---
+
+### 📸 Captures de Traçabilité à Inclure
+
+* **Accès Root** : Capture du terminal montrant la commande `adb root` et le changement du prompt (`#`).
+* **Intégrité Boot** : Capture du résultat de `adb shell getprop ro.boot.verifiedbootstate` (valeur `orange` ou `yellow`).
+* **Diva en exécution** : Capture d'écran de l'application lancée sur l'AVD Pixel_6.
+* **Logs Dynamiques** : Capture de `adb logcat | grep -i "diva"` montrant une fuite d'information.
+
+---
+**Conseil de documentation** : Utilisez un outil comme *Flameshot* ou *Spectacle* pour annoter vos captures avec des flèches rouges sur les adresses mémoires ou les secrets révélés.
+
